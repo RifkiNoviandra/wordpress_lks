@@ -1,0 +1,8 @@
+body{
+    background-image: url("photos/belitung.jpg");
+    object-fit: cover;
+}
+
+.login h1 a{
+    background-image: none!important;
+}
