@@ -6,11 +6,11 @@ get_header();
 ?>
 
 <div class="destination">
-    <h2 style="margin-left: 20px">Most Viewed Destination</h2>
+    <h2 style="margin-left: 20px">All article</h2>
     <div class="container-wrap">
         <?php $post = get_posts([
             'posts_per_page' => -1,
-            'post_type' => 'places'
+            'post_type' => 'articles'
         ]);
 
         foreach ($post as $posts) :

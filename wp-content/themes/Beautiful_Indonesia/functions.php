@@ -17,6 +17,13 @@ add_action('init', function () {
         $post->labels->{$key} = $value ;
     }
 
+    $post->has_archive = 'articles';
+    $post->rewrite = ['slug' => 'article', 'with_front' => true];
+//    $post->rewrite['with_front'] = false;
+
+    unregister_post_type('post');
+//    register_post_type('post' , (array)$post);
+
 
     register_post_type('places', [
         'label' => 'Place',
@@ -27,6 +34,15 @@ add_action('init', function () {
         "has_archive" => 'places'
     ]);
 
+    register_post_type('articles', [
+        'label' => 'Article',
+        'public' => true,
+        'supports' => ['title', 'thumbnail', 'editor'],
+        'show_in_rest' => true,
+        'rewrite' => ['slug' => 'article'] ,
+        "has_archive" => 'articles'
+    ]);
+
     register_sidebar([
         "id" => "Social_Icons_Template",
         "name" => "Social_Icons",
@@ -35,3 +51,32 @@ add_action('init', function () {
     ]);
 });
 
+function getView( $postID ){
+    $key = 'counter' ;
+
+    $count = get_post_meta($postID , $key , true);
+
+    if ($count == ''){
+        delete_post_meta($postID , $key);
+        add_post_meta($postID , $key , '0');
+
+        $count = 0 ;
+    }
+
+    return $count;
+}
+
+function setView( $postID ){
+    $key = 'counter' ;
+
+    $count = get_post_meta($postID , $key , true);
+
+    if ($count == ''){
+        $count = 0 ;
+        delete_post_meta($postID , $key);
+        add_post_meta($postID , $key , '0');
+    }else{
+        $count++;
+        update_post_meta($postID , $key , $count);
+    }
+}

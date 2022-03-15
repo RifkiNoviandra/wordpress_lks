@@ -18,7 +18,11 @@
         <h2 style="margin-left: 20px">Most Viewed Destination</h2>
         <div class="container flex-column">
             <?php $post = get_posts([
-                'post_per_page' => 4
+                'posts_per_page' => 4 ,
+                'post_type' => 'places',
+                'orderby' => 'meta_value_num',
+                'order' => 'DESC',
+                'meta_key' => 'counter'
             ]);
 
             foreach ($post as $posts) :
